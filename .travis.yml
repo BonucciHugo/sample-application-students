@@ -3,9 +3,19 @@ script : mvn clean verify dependency:go-offline
 cache :
   directories: 
     - "$HOME/.m2/repository"
+
+addons:
+  sonarcloud:
+    organization: "bonuccihugo"
+    token:
+      secure: $sample-application-db-changelog-job
+      secure: $sample-application-http-api-server
 jobs:
   include:
     
+    - stage: cloner
+      script: 
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=BonucciHugo_sample-application-students 
     - stage: build
       script: 
         - echo "$PWD_DOCKER" | docker login -u "$USERNAME_DOCKER" --password-stdin
@@ -17,5 +27,6 @@ jobs:
         - docker push $USERNAME_DOCKER/sample-application-db-changelog-job:bdd
 
 stages:
+  - name : cloner
   - name: build
     if: branch = master
