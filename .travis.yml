@@ -3,3 +3,19 @@ script : mvn clean verify dependency:go-offline
 cache :
   directories: 
     - "$HOME/.m2/repository"
+jobs:
+  include:
+    
+    - stage: build
+      script: 
+        - echo "$PWD_DOCKER" | docker login -u "$USERNAME_DOCKER" --password-stdin
+        - docker build -t httpd sample-application-http-api-server
+        - docker build -t bdd sample-application-db-changelog-job
+        - docker tag httpd $dockerhublogin/sample-application-students:httpd
+        - docker tag bdd $dockerhublogin/sample-application-students:bdd
+        - docker push $dockerhublogin/sample-application-students:httpd
+        - docker push $dockerhublogin/sample-application-students:bdd
+
+stages:
+  - name: build
+    if: branch = master
