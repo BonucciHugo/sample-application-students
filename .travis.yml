@@ -18,4 +18,4 @@ jobs:
 
 stages:
   - name: build
-    if: branch = master
+    if: branch = dev
