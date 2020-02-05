@@ -8,7 +8,7 @@ jobs:
     
     - stage: build
       script: 
-        - echo "$PWD_DOCKER" | docker login -u "$USERNAME_DOCKER" --password-stdin
+        - docker login -u "$USERNAME_DOCKER" | -p "$PWD_DOCKER --password-stdin
         - docker build -t httpd sample-application-http-api-server
         - docker build -t bdd sample-application-db-changelog-job
         - docker tag httpd $do/sample-application-students:httpd
