@@ -8,7 +8,7 @@ addons:
   sonarcloud:
     organization: "bonuccihugo"
     token:
-      secure: $sonar_token
+      secure: $SONAR_TOKEN
       
 jobs:
   include:
