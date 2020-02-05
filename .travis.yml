@@ -11,10 +11,10 @@ jobs:
         - echo "$PWD_DOCKER" | docker login -u "$USERNAME_DOCKER" --password-stdin
         - docker build -t http sample-application-http-api-server
         - docker build -t bdd sample-application-db-changelog-job
-        - docker tag http $USERNAME_DOCKER/sample-application-students:http
-        - docker tag bdd $USERNAME_DOCKER/sample-application-students:bdd
-        - docker push $USERNAME_DOCKER/sample-application-students:http
-        - docker push $USERNAME_DOCKER/sample-application-students:bdd
+        - docker tag http $USERNAME_DOCKER/sample-application-http-api-server:http
+        - docker tag bdd $USERNAME_DOCKER/sample-application-db-changelog-job:bdd
+        - docker push $USERNAME_DOCKER/sample-application-http-api-server:http
+        - docker push $USERNAME_DOCKER/sample-application-db-changelog-job:bdd
 
 stages:
   - name: build
