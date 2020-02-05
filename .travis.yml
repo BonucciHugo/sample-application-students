@@ -1,2 +1,6 @@
 language: java
 script : mvn clean verify
+cache :
+  directories: 
+    - $HOME/.mvn/caches/
+    -$HOME/.mvn/wrapper/
